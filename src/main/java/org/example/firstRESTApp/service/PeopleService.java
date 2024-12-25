@@ -2,6 +2,7 @@ package org.example.firstRESTApp.service;
 
 import org.example.firstRESTApp.models.Person;
 import org.example.firstRESTApp.repositories.PeopleRepository;
+import org.example.firstRESTApp.util.PersonNotFountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,6 @@ public class PeopleService {
     }
 
     public Person findOne(int id) {
-        return peopleRepository.findById(id).orElse(null);
+        return peopleRepository.findById(id).orElseThrow(PersonNotFountException::new);
     }
 }
