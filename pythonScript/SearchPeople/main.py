@@ -1,14 +1,15 @@
 import requests
 
-id = int(input("Введите id человека\n"))
+URL = f"http://localhost:8080/people"
 
-URL = f"http://localhost:8080/people/{id}"
+data = {
+    "name": "Name from python client",
+    "age": 35,
+    "email": "python@test.com"
+}
+r = requests.post(url=URL, json=data)
 
-r = requests.get(url = URL)
-
-if r.status_code == 404:
-    print(f"Ошибка от сервера: {r.json()['message']}")
-    print(f"Ошибка от сервера: {r.json()['timestamp']}")
+if r.status_code == 200:
+    print("Человек был успешно создан")
 else:
-    person = r.json()
-    print(f"Имя человека: {person['name']}")
+    print("Человек не был создан")
